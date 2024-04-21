@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TP CRUD</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <div class="container mx-auto h-screen w-screen p-5">
+      <div
+        class="flex justify-center items-center h-full w-full bg-slate-50 rounded-md"
+      >
+        <div class="w-11/12 bg-white rounded-md p-3 flex flex-col gap-3">
+          <div class="flex gap-2 justify-center items-center">
+            <div
+              class="flex grow justify-center items-center bg-green-800 rounded-md p-3"
+            >
+              <span class="text-white font-bold"> Listes des stagiaires </span>
+            </div>
+            <div
+              id="add_trainer_btn"
+              class="w-[50px] flex grow-0 justify-center items-center bg-green-800 hover:bg-green-900 hover:cursor-pointer rounded-md p-3"
+            ></div>
+          </div>
+          <div class="flex gap-2">
+            <div class="p-2 bg-slate-500 rounded-md">
+              <span class="font-semibold text-white">
+                Développement Digital
+              </span>
+            </div>
+            <div class="p-2 bg-slate-500 rounded-md">
+              <span class="font-semibold text-white"> UI/UX </span>
+            </div>
+            <div class="p-2 bg-slate-500 rounded-md">
+              <span class="font-semibold text-white">
+                Infrastructure Digital
+              </span>
+            </div>
+            <div class="p-2 bg-slate-500 rounded-md">
+              <span class="font-semibold text-white">
+                Intelligence Artificielle
+              </span>
+            </div>
+          </div>
+          <div id="trainers_list" class="grid grid-cols-4 gap-4 w-full"></div>
+          <div id="add_trainer" class="hidden flex-col gap-4">
+            <div class="flex gap-2">
+              <input
+                class="flex grow w-1/3 border-2 border-slate-200 p-2 rounded-md hover:border-slate-300"
+                placeholder="Nom..."
+                type="text"
+                id="lastName"
+              />
+              <input
+                class="flex grow w-1/3 border-2 border-slate-200 p-2 rounded-md hover:border-slate-300"
+                placeholder="Prénom..."
+                type="text"
+                id="firstName"
+              />
+              <select
+                name="gender"
+                id="gender"
+                class="flex grow w-1/3 border-2 border-slate-200 p-2 rounded-md hover:border-slate-300"
+              >
+                <option value="" disabled selected>Genre...</option>
+                <option value="female">Féminin</option>
+                <option value="male">Masculin</option>
+              </select>
+            </div>
+            <div class="flex gap-2">
+              <select
+                class="flex w-1/3 grow border-2 border-slate-200 p-2 rounded-md hover:border-slate-300"
+                placeholder="Profil..."
+                name="profile"
+                id="profile"
+              >
+                <option value="" disabled selected>Profil...</option>
+                <option value="trainer">Stagiaire</option>
+                <option value="prof2">Profil 2</option>
+              </select>
+              <select
+                class="flex w-1/3 grow border-2 border-slate-200 p-2 rounded-md hover:border-slate-300"
+                placeholder="Spécialité..."
+                name="major"
+                id="major"
+              >
+                <option value="" disabled selected>Spécialité...</option>
+                <option value="digital">Développement Digital</option>
+                <option value="ui_ux">UI/UX</option>
+                <option value="infra">Infrastructure Digital</option>
+                <option value="ia">Intéligence Artificielle</option>
+              </select>
+
+              <select
+                class="flex w-1/3 border-2 border-slate-200 p-2 rounded-md hover:border-slate-300"
+                placeholder="Classe..."
+                name="class"
+                id="class"
+              >
+                <option value="" disabled selected>Classe...</option>
+                <option value="class1">Classe 1</option>
+                <option value="class2">Classe 2</option>
+              </select>
+            </div>
+            <div class="flex gap-2">
+              <input
+                class="flex grow w-1/3 border-2 border-slate-200 p-2 rounded-md hover:border-slate-300"
+                placeholder="Note M101..."
+                type="number"
+                id="noteM101"
+              />
+              <input
+                class="flex grow w-1/3 border-2 border-slate-200 p-2 rounded-md hover:border-slate-300"
+                placeholder="Note M102..."
+                type="number"
+                id="noteM102"
+              />
+              <input
+                class="flex grow w-1/3 border-2 border-slate-200 p-2 rounded-md hover:border-slate-300"
+                placeholder="Note M103..."
+                type="number"
+                id="noteM103"
+              />
+            </div>
+            <div class="flex justify-center items-center">
+              <button
+                id="add_trainer_to_list_btn"
+                class="p-2 bg-green-700 hover:bg-green-800 px-[60px] text-white font-semibold rounded-md"
+              ></button>
+            </div>
+          </div>
+          <div
+            id="delete_trainer"
+            class="hidden flex-col justify-center items-center w-full gap-4"
+          >
+            <div class="flex">
+              <img src="warning.png" class="w-[200px]" alt="" />
+            </div>
+            <div>
+              <span class="font-semibold text-cyan-700">
+                Voulez vous vraiment supprimer le stagiaire
+                <span
+                  id="trainer_to_delete_name"
+                  class="font-bold text-cyan-900"
+                ></span>
+              </span>
+            </div>
+            <div class="flex justify-center items-center gap-2">
+              <button
+                id="confirm_delete"
+                class="py-[10px] px-[30px] bg-sky-800 hover:bg-sky-900 rounded-md font-semibold text-white"
+              >
+                Confirmer
+              </button>
+              <button
+                id="cancel_delete"
+                class="py-[10px] px-[30px] bg-gray-500 hover:bg-gray-700 rounded-md font-semibold text-white"
+              >
+                Annuler
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      var isUpdateMode = false;
+
+      var add_trainer_btn = document.getElementById("add_trainer_btn");
+      var add_trainer_to_list_btn = document.getElementById(
+        "add_trainer_to_list_btn"
+      );
+      var trainers_list = document.getElementById("trainers_list");
+      var add_trainer = document.getElementById("add_trainer");
+
+      var firstName = document.getElementById("firstName");
+      var lastName = document.getElementById("lastName");
+      var gender = document.getElementById("gender");
+      var profile = document.getElementById("profile");
+      var major = document.getElementById("major");
+      var class_ = document.getElementById("class");
+      var noteM101 = document.getElementById("noteM101");
+      var noteM102 = document.getElementById("noteM102");
+      var noteM103 = document.getElementById("noteM103");
+
+      var trainers = [];
+      emptyTrainersList();
+
+      setAddTrainerButton(isUpdateMode);
+
+      add_trainer_btn.addEventListener("click", () => {
+        isUpdateMode = !isUpdateMode;
+        switchBetweenUpdateAndAddMode();
+        isConfirmDeleteMode = false;
+        indexToDelete = -1;
+        delete_trainer.classList.remove("flex");
+        delete_trainer.classList.add("hidden");
+        if (isUpdateMode)
+          add_trainer_to_list_btn.innerHTML = "Ajouter le Stagiaire";
+        isEdit = false;
+      });
+
+      add_trainer_to_list_btn.addEventListener("click", () => {
+        if (!validateForm()) return;
+
+        if (!isEdit)
+          addTrainer({
+            identity: { firstName: firstName.value, lastName: lastName.value },
+            profile: profile.value,
+            major: major.value,
+            class: class_.value,
+            gender: gender.value,
+            notes: {
+              m101: noteM101.value,
+              m102: noteM102.value,
+              m103: noteM103.value,
+            },
+          });
+        else
+          editTrainer({
+            identity: { firstName: firstName.value, lastName: lastName.value },
+            profile: profile.value,
+            major: major.value,
+            class: class_.value,
+            gender: gender.value,
+            notes: {
+              m101: noteM101.value,
+              m102: noteM102.value,
+              m103: noteM103.value,
+            },
+          });
+
+        emptyForm();
+        loadListTrainers();
+        isUpdateMode = false;
+        switchBetweenUpdateAndAddMode();
+      });
+
+      function setAddTrainerButton(isUpdateMode) {
+        if (isUpdateMode) {
+          add_trainer_btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M6 12H18M6 12L11 7M6 12L11 17" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>`;
+        } else {
+          add_trainer_btn.innerHTML = ` <svg
+                fill="#ffffff"
+                width="50px"
+                viewBox="0 0 32 32"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                stroke="#ffffff"
+              >
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g
+                  id="SVGRepo_tracerCarrier"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></g>
+                <g id="SVGRepo_iconCarrier">
+                  <title>plus-user</title>
+                  <path
+                    d="M2.016 28q0 0.832 0.576 1.44t1.408 0.576h14.016v-0.352q-1.792-0.608-2.912-2.176t-1.088-3.488q0-2.016 1.184-3.584t3.072-2.112q0.384-1.216 1.216-2.176t2.016-1.504q0.512-1.376 0.512-2.624v-1.984q0-3.328-2.368-5.664t-5.632-2.336-5.664 2.336-2.336 5.664v1.984q0 2.112 1.024 3.904t2.784 2.912q-1.504 0.544-2.912 1.504t-2.496 2.144-1.76 2.624-0.64 2.912zM18.016 24q0 0.832 0.576 1.44t1.408 0.576h2.016v1.984q0 0.864 0.576 1.44t1.408 0.576 1.408-0.576 0.608-1.44v-1.984h1.984q0.832 0 1.408-0.576t0.608-1.44-0.608-1.408-1.408-0.576h-1.984v-2.016q0-0.832-0.608-1.408t-1.408-0.576-1.408 0.576-0.576 1.408v2.016h-2.016q-0.832 0-1.408 0.576t-0.576 1.408z"
+                  ></path>
+                </g>
+              </svg>`;
+        }
+      }
+
+      function addTrainer(trainer) {
+        trainers.push({
+          identity: {
+            firstName: trainer.identity.firstName,
+            lastName: trainer.identity.lastName,
+          },
+          profile: trainer.profile,
+          major: trainer.major,
+          class: trainer.class,
+          gender: trainer.gender,
+          notes: {
+            m101: trainer.notes.m101,
+            m102: trainer.notes.m102,
+            m103: trainer.notes.m103,
+          },
+        });
+      }
+
+      function editTrainer(newTrainerData) {
+        if (indexToEdit > -1 && indexToEdit < trainers.length) {
+          // Modify the trainer at indexToEdit
+          trainers[indexToEdit] = {
+            identity: {
+              firstName: newTrainerData.identity.firstName,
+              lastName: newTrainerData.identity.lastName,
+            },
+            profile: newTrainerData.profile,
+            major: newTrainerData.major,
+            class: newTrainerData.class,
+            gender: newTrainerData.gender,
+            notes: {
+              m101: newTrainerData.notes.m101,
+              m102: newTrainerData.notes.m102,
+              m103: newTrainerData.notes.m103,
+            },
+          };
+          console.log(trainers);
+        }
+      }
+
+      function validateForm() {
+        const fields = [
+          firstName,
+          lastName,
+          gender,
+          class_,
+          major,
+          profile,
+          noteM101,
+          noteM102,
+          noteM103,
+        ];
+
+        let formIsValid = true;
+
+        fields.forEach((field) => {
+          if (field.value === "") {
+            switchBorderToError(field);
+            formIsValid = false;
+          } else {
+            switchBorderToValid(field);
+          }
+        });
+
+        return formIsValid;
+      }
+
+      function switchBorderToError(node) {
+        node.classList.remove("border-slate-200");
+        node.classList.add("border-rose-600");
+      }
+
+      function switchBorderToValid(node) {
+        node.classList.add("border-slate-200");
+        node.classList.remove("border-rose-600");
+      }
+
+      function emptyForm() {
+        firstName.value = "";
+        lastName.value = "";
+        gender.value = "";
+        profile.value = "";
+        major.value = "";
+        class_.value = "";
+        noteM101.value = "";
+        noteM102.value = "";
+        noteM103.value = "";
+      }
+
+      function loadListTrainers() {
+        trainers_list.innerHTML = "";
+        trainers.forEach((trainer, index) => {
+          const trainerCard = document.createElement("div");
+          trainerCard.classList.add(
+            trainer.gender == "male" ? "bg-red-300" : "bg-cyan-300",
+            "rounded-md",
+            "p-2"
+          );
+          trainerCard.innerHTML = `
+            <div class="flex flex-col gap-3">
+              <div class="flex gap-2">
+                <button
+                id="deleteBtn"
+                onClick="deleteTrainer(${index})"
+                  class="p-1 bg-slate-100 hover:bg-slate-200 rounded-full"
+                >
+                  <img class="w-[30px]" src="delete.png" alt="" srcset="" />
+                </button>
+                <button
+                
+                onClick="updateTrainer(${index})"
+                  class="p-1 bg-slate-100 hover:bg-slate-200 rounded-full"
+                >
+                  <img class="w-[30px]" src="edit.png" alt="" srcset="" />
+                </button>
+              </div>
+              <div class="flex justify-center items-center">
+                <div class="rounded-full bg-slate-200 p-3">
+                  
+                  <img class="w-[100px]" src="${
+                    trainer.gender == "male" ? "man.png" : "woman.png"
+                  }" alt="" srcset="" />
+                </div>
+              </div>
+              <div class="flex flex-col justify-center items-center">
+                <span class="font-bold text-cyan-700">${
+                  trainer.identity.firstName
+                } ${trainer.identity.lastName}</span>
+                <span class="font-semibold text-xs">${
+                  trainer.profile == "trainer" ? "Stagiaire" : "Profil 2"
+                } - ${trainer.class}</span>
+                <div class="flex items-center p-1 mt-5 gap-2 bg-slate-200">
+                  <div class="bg-cyan-700">
+                    <span class="text-xs font-bold p-1 text-white">#${
+                      index + 1
+                    }</span>
+                  </div>
+                  <div>
+                    <span class="text-xs font-semibold p-1">
+                      Moyenne : ${
+                        (parseFloat(trainer.notes.m101) +
+                          parseFloat(trainer.notes.m102) +
+                          parseFloat(trainer.notes.m103)) /
+                        3
+                      }
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+          trainers_list.appendChild(trainerCard);
+        });
+        emptyTrainersList();
+      }
+
+      function switchBetweenUpdateAndAddMode() {
+        setAddTrainerButton(isUpdateMode);
+        if (isUpdateMode) {
+          trainers_list.classList.remove("flex");
+          trainers_list.classList.add("hidden");
+
+          add_trainer.classList.remove("hidden");
+          add_trainer.classList.add("flex");
+        } else {
+          trainers_list.classList.remove("hidden");
+          trainers_list.classList.add("flex");
+
+          add_trainer.classList.remove("flex");
+          add_trainer.classList.add("hidden");
+        }
+      }
+
+      function emptyTrainersList() {
+        if (trainers.length == 0) {
+          trainers_list.innerHTML = `
+          <div class="flex flex-col gap-3 justify-center items-center w-full">
+            <svg width="154px" height="154px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12 7.75V13" stroke="#e62d2d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M21.08 8.58003V15.42C21.08 16.54 20.48 17.58 19.51 18.15L13.57 21.58C12.6 22.14 11.4 22.14 10.42 21.58L4.47998 18.15C3.50998 17.59 2.90997 16.55 2.90997 15.42V8.58003C2.90997 7.46003 3.50998 6.41999 4.47998 5.84999L10.42 2.42C11.39 1.86 12.59 1.86 13.57 2.42L19.51 5.84999C20.48 6.41999 21.08 7.45003 21.08 8.58003Z" stroke="#e62d2d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M12 16.2V16.2999" stroke="#e62d2d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>          
+                <span class="font-bold">Aucun stagiaire trouvé</span>
+            </div>
+          `;
+        }
+      }
+
+      var indexToDelete = -1;
+      var isConfirmDeleteMode = false;
+      var delete_trainer = document.getElementById("delete_trainer");
+      var cancel_delete = document.getElementById("cancel_delete");
+      var trainer_to_delete_name = document.getElementById(
+        "trainer_to_delete_name"
+      );
+      var confirm_delete = document.getElementById("confirm_delete");
+      function deleteTrainer(index) {
+        if (index > -1) {
+          indexToDelete = index;
+          isConfirmDeleteMode = true;
+          switchBetweenDeleteAndListMode();
+          trainer_to_delete_name.innerHTML =
+            trainers[indexToDelete].identity.firstName +
+            " " +
+            trainers[indexToDelete].identity.lastName;
+        }
+      }
+
+      function switchBetweenDeleteAndListMode() {
+        if (isConfirmDeleteMode) {
+          trainers_list.classList.remove("flex");
+          trainers_list.classList.add("hidden");
+
+          delete_trainer.classList.remove("hidden");
+          delete_trainer.classList.add("flex");
+        } else {
+          trainers_list.classList.remove("hidden");
+          trainers_list.classList.add("flex");
+
+          delete_trainer.classList.remove("flex");
+          delete_trainer.classList.add("hidden");
+        }
+      }
+
+      cancel_delete.addEventListener("click", () => {
+        indexToDelete = -1;
+        isConfirmDeleteMode = false;
+        switchBetweenDeleteAndListMode();
+      });
+      confirm_delete.addEventListener("click", () => {
+        trainers.splice(indexToDelete, 1);
+        indexToDelete = -1;
+        isConfirmDeleteMode = false;
+        switchBetweenDeleteAndListMode();
+        loadListTrainers();
+      });
+
+      var isEdit = false;
+      var indexToEdit = -1;
+      function updateTrainer(index) {
+        const trainer = trainers[index];
+        firstName.value = trainer.identity.firstName;
+        lastName.value = trainer.identity.lastName;
+        gender.value = trainer.gender;
+        profile.value = trainer.profile;
+        major.value = trainer.major;
+        class_.value = trainer.class;
+        noteM101.value = trainer.notes.m101;
+        noteM102.value = trainer.notes.m102;
+        noteM103.value = trainer.notes.m103;
+        isUpdateMode = true;
+        isEdit = true;
+        indexToEdit = index;
+        switchBetweenUpdateAndAddMode();
+        if (isUpdateMode)
+          add_trainer_to_list_btn.innerHTML = "Modifier le Stagiaire";
+      }
+    </script>
+  </body>
+</html>
